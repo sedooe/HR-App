@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Job</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <nav role="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/jobs">Jobs</a></li>
+        </ul>
+    </nav>
+
+    <h1>Form</h1>
+
+    <form action="#" th:action="@{/jobs/create}" th:object="${form}" method="post">
+        <div>
+            <label>Title</label>
+            <input type="text" th:field="*{title}"/>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+        </div>
+
+        <div>
+            <label>Description</label>
+            <textarea rows="3" cols="30" th:field="*{description}"></textarea>
+            <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </div>
+
+        <div>
+            <label>Number of people to hire</label>
+            <input type="text" th:field="*{numPeopleToHire}" />
+            <td th:if="${#fields.hasErrors('numPeopleToHire')}" th:errors="*{numPeopleToHire}"></td>
+        </div>
+
+        <div>
+            <label>Last Date (dd/mm/yyyy form)</label>
+            <input type="text" th:field="*{lastDate}" />
+            <td th:if="${#fields.hasErrors('lastDate')}" th:errors="*{lastDate}"></td>
+        </div>
+
+        <input type="submit" value="Save" /> <input type="reset" value="Reset" />
+    </form>
+</body>
+</html>

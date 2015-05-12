@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Jobs</title>
+</head>
+<body>
+    <nav role="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Number of people to hire</th>
+        </tr>
+        <tr th:each="job : ${jobs}">
+            <td><a th:href="@{/jobs/} + ${job.id}" th:text="${job.title}">TITLE</a></td>
+            <td th:text="${job.numPeopleToHire}">NUMBER</td>
+        </tr>
+    </table>
+    <p sec:authorize="isAuthenticated()">Click <a th:href="@{/jobs/create}">here</a> to add new job posting.</p>
+</body>
+</html>

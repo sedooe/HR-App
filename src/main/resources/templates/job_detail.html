@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title></title>
+</head>
+<body>
+    <nav role="navigation">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/jobs">Jobs</a></li>
+        </ul>
+    </nav>
+
+    <h1>Job Details</h1>
+    <p th:inline="text"><strong>Title:</strong> [[${job.title}]]</p>
+    <p th:inline="text"><strong>Description:</strong> [[${job.description}]]</p>
+    <p th:inline="text"><strong>Number of people to hire:</strong> [[${job.numPeopleToHire}]]</p>
+    <p th:inline="text"><strong>Last application date:</strong> [[${job.lastDate}]]</p>
+
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/jobs/} + ${job.id}" method="post">
+            <input type="submit" value="Delete this posting" name="delete" />
+        </form>
+     </div>
+
+    <div sec:authorize="isAnonymous()">
+        <h1>Application Form</h1>
+        <form action="#" th:action="@{/jobs/} + ${job.id}" th:object="${form}" method="post">
+            <div>
+                <label>First name</label>
+                <input type="text" th:field="*{firstName}" />
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></td>
+            </div>
+
+            <div>
+                <label>Last name</label>
+                <input type="text" name="lastName" th:value="${form.lastName}" />
+            </div>
+
+            <div>
+                <label>Email</label>
+                <input type="text" name="email" th:value="${form.email}" />
+            </div>
+
+            <div>
+                <label>Phone</label>
+                <input type="text" name="phone" th:value="${form.phone}" />
+            </div>
+
+            <div>
+                <label>Address</label>
+                <textarea rows="3" cols="30" name="address" th:value="${form.address}"></textarea>
+            </div>
+
+            <div>
+                <label>Thoughts on job</label>
+                <textarea rows="3" cols="30" name="thoughts" th:value="${form.thoughts}"></textarea>
+            </div>
+
+            <input type="submit" value="Submit" name="apply" /> <input type="reset" value="Reset" />
+        </form>
+    </div>
+</body>
+</html>
